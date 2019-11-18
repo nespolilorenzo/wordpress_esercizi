@@ -1,0 +1,34 @@
+{
+    "name": "rakmarathon",
+    "authors": [{
+      "name": "Zampediverse",
+      "email": "test@zampe.com"
+    }],
+    "description": "Rak marathon",
+    "repositories": [{
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }],
+    "extra": {
+      "installer-paths": {
+        "wp-content/plugins/{$name}/": [
+          "type:wordpress-plugin"
+        ],
+        "wp-content/themes/{$name}/": [
+          "type:wordpress-theme"
+        ]
+      }
+    },
+    "minimum-stability": "dev",
+    "require": {
+      "wpackagist-plugin/all-in-one-wp-security-and-firewall": "4.3.1",
+      "wpackagist-plugin/disable-comments": "1.8.0",
+      "wpackagist-plugin/disable-wordpress-updates": "1.6.3",
+      "wpackagist-plugin/facebook-image-fix": "0.4.3",
+      "wpackagist-plugin/facebook-like-thumbnail": "0.4",
+      "wpackagist-plugin/fb-instant-articles": "4.1.1",
+      "wpackagist-plugin/w3-total-cache": "0.9.7",
+      "wpackagist-plugin/cookie-notice":"1.2.45",
+      "wpackagist-plugin/contact-form-7":"5.1.1"
+    }
+  }

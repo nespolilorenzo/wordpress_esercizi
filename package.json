@@ -1,0 +1,57 @@
+{
+  "name": "rak-half-marathon",
+  "version": "1.0.0",
+  "description": "RAK Half Marathon",
+  "main": "index.js",
+  "dependencies": {
+    "@fancyapps/fancybox": "^3.5.7",
+    "addtocalendar": "^1.5.3",
+    "ansi-styles": "^3.2.1",
+    "bootstrap": "^4.1.3",
+    "browser-sync": "^2.26.3",
+    "easy-autocomplete": "^1.3.5",
+    "font-awesome": "^4.7.0",
+    "fs-extra": "^7.0.1",
+    "gsap": "^2.1.3",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-clean-css": "^3.10.0",
+    "gulp-compile-handlebars": "^0.6.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-ext-replace": "^0.3.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-minify": "^3.1.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-uglify": "^3.0.1",
+    "hamburgers": "^1.1.3",
+    "handlebars": "^4.0.12",
+    "jquery": "^3.3.1",
+    "jquery.cookie": "^1.4.1",
+    "masonry-layout": "^4.2.2",
+    "moment": "^2.22.2",
+    "node-sass": "^4.10.0",
+    "popper.js": "^1.14.5",
+    "scrollmagic": "^2.0.7",
+    "slick-carousel": "^1.8.1",
+    "snapsvg": "^0.5.1",
+    "swiper": "^4.5.0",
+    "wowjs": "^1.1.3",
+    "yargs": "^12.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket_zampediverse@bitbucket.org/zampediverseWeb/rcs-rak-half-marathon.git"
+  },
+  "keywords": [
+    "RAK Half Marathon"
+  ],
+  "author": "zampediverse",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/zampediverseWeb/rcs-rak-half-marathon/src/master/"
+}

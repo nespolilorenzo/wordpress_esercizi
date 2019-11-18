@@ -1,0 +1,28 @@
+html {
+    body {
+        nav {
+            padding: 25px 0;
+
+            ul {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 0;
+                width: 100%;
+
+                li {
+                    list-style-type: none;
+                }
+            }
+        }
+
+        #container-post {
+            svg {
+                margin: 0 auto;
+            }
+
+        }
+        #showmore {
+            display: none;
+        }
+    }
+}
