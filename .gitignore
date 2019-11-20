@@ -16,6 +16,7 @@ wp-content/themes/app/assets/js/app.js
 wp-includes
 wp-admin
 node_modules
+uploads
 
 /.htaccess
 /license.txt
