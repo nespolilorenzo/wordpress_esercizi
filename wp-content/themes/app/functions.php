@@ -21,7 +21,6 @@ add_action( 'wp_enqueue_scripts', 'bottega_init' );
 function bottega_init(){
     wp_enqueue_style( 'app', get_template_directory_uri().'/assets/css/app.css' );
     wp_enqueue_script( 'app', get_template_directory_uri().'/assets/js/app.js', array(), false, true );
-
 }
 
 //rendo il post type privato di default

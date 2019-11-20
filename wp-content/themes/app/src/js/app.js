@@ -52,13 +52,6 @@ function showmore(view,api) {
     });
 }
 
-// passo N. iniziale di post visibili, endpoint
-if(src =! '/'){
-    createpost(2,'http://wordpressprova.local/wp-json/api/v1/ajax');
-    showmore(2,'http://wordpressprova.local/wp-json/api/v1/ajax');
-}
-
-
 
 // Funzione per chiamata ajax con url custom
 
@@ -80,96 +73,143 @@ function ajaxcustom (){
     });
 }
 
-ajaxcustom();
-
-// Funzione quiz game
-
-// 1 costruisco domanda
-// 2 verifica al click se la domanda è corretta
-// 3 se è corretta aumento il punteggio
-// 4 vado avanti mostrando la domanda successiva
+if(src === '/'){
+    ajaxcustom();
+}
 
 
 
-var app = function(){
+// Funzione per ottenere valori nel url
+// --> Esempio 1)
+function getUrlParameter (name) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+    sURLVariables = sPageURL.split('&'),
+    sParameterName,
+    i;
 
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
 
-    var init = function(){
-        buildgame();
-        
+        if (sParameterName[0] === p) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
     }
-    
-    // variabili per risposte
-    var qr1 = document.getElementById("r_uno");
-    var qr2 = document.getElementById("r_due");
-    var qr3 = document.getElementById("r_tre");
-    var qr4 = document.getElementById("r_quattro");
-    var punteggio = 0;
-    var count = 0 ;
-    var obj = [];
-    var buildgame = function() {
-        // chiamata ajax per ottenere la domanda
-        
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                obj = JSON.parse(this.responseText);
-                //console.log(obj);
-                var question = "";
-                var r1, r2, r3, r4;
-                // Ciclo per il count (domanda corrente)
-                for(i = 0; i < obj.length; i++){
-                    question = obj[count].Domanda;
-                    r1 = obj[count].Rs1;
-                    r2 = obj[count].Rs2;
-                    r3 = obj[count].Rs3;
-                    r4 = obj[count].Rs4;
-                    rgiusta = obj[count].RsG;
-                } // Assegno i valori
-                document.getElementById("quiz_d").innerHTML = question;
-                qr1.innerHTML = r1; jQuery(qr1).attr('data-risposta', r1);  // Assegno a ogni risposta il data value x confrontarlo poi con la risposta giusta
-                qr2.innerHTML = r2; jQuery(qr2).attr('data-risposta', r2);
-                qr3.innerHTML = r3; jQuery(qr3).attr('data-risposta', r3);
-                qr4.innerHTML = r4; jQuery(qr4).attr('data-risposta', r4);
-                check(rgiusta,obj);
-            }
-        };
-        
-        xhttp.open("GET", "http://wordpressprova.local/wp-json/api/v1/domande/", true);
-        xhttp.send();
-        
-    }
-    
-    var check = function(rgiusta,obj){
-        jQuery('.risposta').on('click', function(){
-            var that = jQuery(this);
-            var data = jQuery(that).data();
-            //console.log(data.risposta, rgiusta);
-            if(data.risposta === rgiusta){
-                // aumento il punteggio 
-                punteggio = punteggio + 100;
-                count = count + 1;
-                // chiamata Ajax per nuova domanda 
-                console.log(obj)
-            }
-            else{
-                // 
-                punteggio = punteggio + 0;
-                count = count + 1;
-                
-            }
-            console.log('Count: ' + count + ' Punteggio: ' + punteggio);
-        })
-    }
-    return {
-        init: init
-    }
-};
+}
+//console.log(getUrlParameter('valore'))
+// --> Esempio 2
+function sgetUrlParameter (name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+// console.log(sgetUrlParameter('valore')) --> es ?valore=xxx in console trovi xxx
 
-jQuery(document).ready(function(){
-    var App = new app();
-        App.init()
-})
+
+// Questa funzione ti permette di caricare uno script 
+function loadScriptSync (u, c) {
+    var d = document,
+        t = 'script',
+        o = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) {
+        o.addEventListener('load', function (e) {
+            c(null, e);
+        }, false);
+    }
+    s.parentNode.insertBefore(o, s);
+}
+
+// loadScriptSync('https://code.createjs.com/easeljs-0.6.0.min.js', function () {});
+
+// Funzione che ti permette di caricare un file css
+function loadCssSync (u, c) {
+    var d = document,
+        t = 'link',
+        o = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    o.href = u;
+    o.type = 'text/css';
+    o.rel = 'stylesheet';
+    if (c) {
+        o.addEventListener('load', function (e) {
+            c(null, e);
+        }, false);
+    }
+    s.parentNode.insertBefore(o, s);
+}
+
+// loadCssSync('https://code.createjs.com/easeljs-0.6.0.min.css', function () {});
+
+
+
+// Funzioni tracciamento con analitycs
+
+function track (action,category,label,value) {
+    if (typeof ga !== 'undefined') {
+        gtag('event', action, {
+            'event_category': category,
+            'event_label': label,
+            'value': value
+        });
+    }
+}
+
+// può essere richiamata al click
+//  --> es track('hotspot', 'dettaglio' ) -- possono essere anche delle variabili
+// oppure allo scrool 
+// --> track('Scroll event','page','to','bottom')
+// --> nel elemento direttamente onclick="track('button','Hotspot')
+
+// parrallax custom
+
+var parallaxEl = function(className,type,unit){
+
+    var parallaxType = type ? '+' : '-';
+    var unit = unit || 10;
+
+    if(jQuery(className).length > 0){
+        document.addEventListener('scroll', function (event) {
+            
+                var that = jQuery(className),
+                    thatOffset = that.offset().top,
+                    valy = (1 - Math.max(thatOffset/2 - (jQuery(window).scrollTop() / 2 )) / unit);
+
+                    that.css({
+                        "transform" : "translateY("+parallaxType+Math.abs(valy)+"px)"
+                    });
+
+            
+        }, true);
+    }
+
+}
+
+// parallaxEl('.parallax-texts h2:eq(2)',true,15);
+// parallaxEl('.parallax-texts h2:eq(1)',true,30);
+
+
+
+
+
+
+
+
+
+
+
+// switch per richiamo funzioni
+switch (src){
+    case '/':
+        ajaxcustom()
+    break;
+    case '/contenuti-ajax/':
+        createpost(2,'http://wordpressprova.local/wp-json/api/v1/ajax');
+        showmore(2,'http://wordpressprova.local/wp-json/api/v1/ajax');
+    break;
+}
+
 
 
 
