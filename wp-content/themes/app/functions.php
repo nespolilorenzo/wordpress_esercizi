@@ -72,3 +72,30 @@ function logout_without_confirm($action, $result)
 
 // richiamo le api custom 
 require 'api.php';
+
+// modifico il form comments
+function edit_website_field($fields) {
+    $commenter = wp_get_current_commenter();
+    $req = get_option( 'require_name_email' );
+    $aria_req = ( $req ? " aria-required='true'" : '' );
+    $fields =  array(
+        'author' =>
+        '<p class="comment-form-author"><label for="author">Nome</label>' .
+        '<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) .
+        '" size="30"' . $aria_req . ' /></p>',
+        'email' =>
+        '<p class="comment-form-email"><label for="email">Email</label>' .
+        '<input id="email" name="email" type="text" value="' . esc_attr(  $commenter['comment_author_email'] ) .
+        '" size="30"' . $aria_req . ' /></p>',
+    );
+    return $fields;
+}
+
+function move_comment_field_to_bottom( $fields ) {
+    $comment_field = $fields['comment'];
+    unset( $fields['comment'] );
+    $fields['comment'] = $comment_field;
+    return $fields;
+}
+      
+add_filter( 'comment_form_fields', 'move_comment_field_to_bottom');

@@ -211,5 +211,44 @@ switch (src){
 }
 
 
+function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
 
+jQuery('#author').attr('required','required');
+jQuery('#email').attr('required','required');
+jQuery('#commentform').on('submit', function() {
+    
+    jQuery('.name-error').hide();
+    jQuery('.email-error').hide();
+    jQuery('.comment-error').hide();
+    jQuery('.response-form').hide();
 
+    var error = 0;
+    if(jQuery('#author').val().length < 3) {
+        error += 1;
+        jQuery('.comment-form-author').append('<p class="name-error" style="color: #b0b920;">Inserisci un nome valido</p>');
+    } 
+    
+    if(jQuery('#comment').val().length < 12) {
+        error += 1;
+        jQuery('.comment-form-comment').append('<p class="comment-error" style="color: #b0b920;">Inserisci un commento valido</p>');
+    } 
+    
+    var email = jQuery('#email').val();
+    if (!validateEmail(email)) {
+        error += 1;
+        jQuery('.comment-form-email').append('<p class="email-error" style="color: #b0b920;">Inserisci una mail valida</p>');
+    }
+
+    if(error == 0){
+        jQuery('#commentform').append('<p class="response-form" style="border: 2px solid #398f14; padding: 0.2em 1em; width: 100%; margin-top: 1em;">Grazie, il tuo messaggio è stato inviato con successo!</p>');
+        return true;
+    } else {
+        console.log('errore');
+        jQuery('#commentform').append('<p class="response-form" style="border: 2px solid #f7e700; padding: 0.2em 1em; width: 100%; margin-top: 1em;">Uno o più campi contengono un errore o non sono stati compilati. Verifica tutti i campi prima di inviare di nuovo.</p>');
+        return false;
+    }
+
+});
